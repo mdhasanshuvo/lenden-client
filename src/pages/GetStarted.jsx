@@ -21,7 +21,7 @@ const GetStarted = () => {
           </p>
 
           {/* Get Started Button */}
-          <Link to="/register">
+          <Link to="/auth/register">
             <button className="bg-indigo-600 text-white text-lg py-2 px-8 rounded-full shadow-md hover:bg-indigo-700 focus:outline-none transition duration-300">
               Get Started
             </button>
@@ -31,7 +31,7 @@ const GetStarted = () => {
           <div className="mt-4">
             <p className="text-gray-500 text-sm">
               Already have an account?{' '}
-              <Link to="/login" className="text-indigo-600 hover:text-indigo-800">
+              <Link to="/auth/login" className="text-indigo-600 hover:text-indigo-800">
                 Log in
               </Link>
             </p>
