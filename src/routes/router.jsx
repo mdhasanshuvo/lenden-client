@@ -13,6 +13,7 @@ import ManageUsers from "../pages/ManageUsers";
 import ManageAgents from "../pages/ManageAgents";
 import AgentApproval from "../pages/AgentApproval";
 import RequestCash from "../pages/RequestCash";
+import ManageAgentRequests from "../pages/ManageAgentRequests";
 
 const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
             {
                 path: "admin/agent-approvals",
                 element: <AgentApproval></AgentApproval>
+            },
+            {
+                path: "admin/agent-requests",
+                element: <ManageAgentRequests></ManageAgentRequests>
             },
         ],
     },

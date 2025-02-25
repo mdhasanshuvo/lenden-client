@@ -69,6 +69,13 @@ const DashboardLayout = () => {
             <FiSettings size={20} />
             <span>Agent Approvals</span>
           </Link>
+          <Link
+            to="/dashboard/admin/agent-requests"
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
+          >
+            <FiSettings size={20} />
+            <span>Agent Cash Request</span>
+          </Link>
         </>
       );
     } else if (role === "Agent") {
