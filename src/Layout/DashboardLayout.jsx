@@ -116,7 +116,7 @@ const DashboardLayout = () => {
             <span>Send Money</span>
           </Link>
           <Link
-            to="/dashboard/cash-out"
+            to="/dashboard/user/cash-out"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <BiMoneyWithdraw size={20} />
