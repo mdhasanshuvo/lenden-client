@@ -63,11 +63,11 @@ const DashboardLayout = () => {
             <span>Manage Agents</span>
           </Link>
           <Link
-            to="/dashboard/admin-reports"
+            to="/dashboard/admin/agent-approvals"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <FiSettings size={20} />
-            <span>Admin Reports</span>
+            <span>Agent Approvals</span>
           </Link>
         </>
       );
