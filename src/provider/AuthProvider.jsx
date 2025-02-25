@@ -1,108 +1,128 @@
-import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
-// import axios from "axios";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-// Create the context
 export const AuthContext = createContext();
 
-// Dummy API base URL (replace this with your actual API)
-const API_URL = "https://your-backend-api.com"; // Replace with your MongoDB API URL
+const API_URL = "http://localhost:5000"; // your server URL
 
-// Provide AuthContext to your app
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-//   const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  // Dummy login function (simulates checking against MongoDB database)
+  // Make sure axios sends/receives cookies
+  axios.defaults.withCredentials = true;
+
+  // Login function
   const login = async (emailOrMobile, pin) => {
-    // try {
-    //   const response = await axios.post(`${API_URL}/login`, {
-    //     emailOrMobile,
-    //     pin,
-    //   });
-    //   if (response.data.success) {
-    //     setUser(response.data.user);
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Login Successful",
-    //       text: "You have successfully logged in!",
-    //     });
-    //     navigate("/dashboard"); // Redirect to the dashboard or home page
-    //   } else {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Login Failed",
-    //       text: response.data.message,
-    //     });
-    //   }
-    // } catch (error) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Error",
-    //     text: error.message,
-    //   });
-    // }
+    try {
+      // Include { withCredentials: true } to allow cookies
+      const response = await axios.post(`${API_URL}/login`, {
+        emailOrMobile,
+        pin,
+      }, { withCredentials: true });
+
+      if (response.data.success) {
+        // setUser in state
+        setUser(response.data.user);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: "You have successfully logged in!",
+        });
+        return response.data;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: response.data.message,
+        });
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
+      throw error;
+    }
   };
 
-  // Dummy signup function (simulates storing user data in MongoDB)
-  const register = async (name, pin, email, mobile, accountType, nid) => {
-    // try {
-    //   const response = await axios.post(`${API_URL}/register`, {
-    //     name,
-    //     pin,
-    //     email,
-    //     mobile,
-    //     accountType,
-    //     nid,
-    //   });
-    //   if (response.data.success) {
-    //     setUser(response.data.user);
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Registration Successful",
-    //       text: "Your account has been created!",
-    //     });
-    //     navigate("/login"); // Redirect to login page after successful registration
-    //   } else {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Registration Failed",
-    //       text: response.data.message,
-    //     });
-    //   }
-    // } catch (error) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Error",
-    //     text: error.message,
-    //   });
-    // }
+  // Registration function
+  const register = async (name, pin, email, mobileNumber, accountType, nid) => {
+    try {
+      const response = await axios.post(`${API_URL}/register`, {
+        name,
+        pin,
+        email,
+        mobileNumber,
+        accountType,
+        nid,
+      }, { withCredentials: true });
+
+      if (response.data.success) {
+        setUser(response.data.user);
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          text: "Your account has been created!",
+        });
+        return response.data;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: response.data.message,
+        });
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
+      throw error;
+    }
   };
 
-  // Dummy logout function
-  const logout = () => {
-    setUser(null); // Clear the user from state
-    navigate("/login"); // Redirect to login page
-    Swal.fire({
-      icon: "success",
-      title: "Logged Out",
-      text: "You have successfully logged out.",
-    });
+  // Logout function
+  const logout = async () => {
+    try {
+      // Clear the cookie from backend
+      await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
+      setUser(null);
+      Swal.fire({
+        icon: "success",
+        title: "Logged Out",
+        text: "You have successfully logged out.",
+      });
+      // navigate("/auth/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
+
+  // OPTIONAL: If you want to verify if user is still logged in on page refresh, you could do something like:
+  //   useEffect(() => {
+  //     axios.get(`${API_URL}/profile`, { withCredentials: true })
+  //       .then(res => {
+  //         if(res.data.success) {
+  //           setUser(res.data.user);
+  //         }
+  //       })
+  //       .catch(err => {
+  //         console.log("No valid token or can't fetch profile", err);
+  //       });
+  //   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        register,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={{ user, login, register, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthProvider; 
+export default AuthProvider;
