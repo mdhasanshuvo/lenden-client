@@ -20,22 +20,20 @@ const Login = () => {
     const pin = e.target.pin.value;
 
     try {
-      // 1) Capture the returned data from login().
       const responseData = await login(emailOrMobile, pin);
 
-      // 2) Check if login was successful
       if (responseData.success) {
-        const role = responseData.user.accountType;
-        // 3) Redirect user based on their role
+        // role might be "User", "Agent", or "Admin"
+        const role = responseData.role;
         if (role === 'Admin') {
           navigate('/dashboard/admin-home');
         } else if (role === 'Agent') {
           navigate('/dashboard/agent-home');
         } else {
+          // default user
           navigate('/dashboard/user-home');
         }
       } else {
-        // If success is false, throw an error to trigger catch block
         throw new Error(responseData.message || 'Login failed');
       }
     } catch (err) {
@@ -91,10 +89,7 @@ const Login = () => {
 
           <p className="text-center mt-6 text-gray-600">
             Don’t Have An Account?{" "}
-            <Link
-              className="text-indigo-600 hover:text-indigo-800"
-              to="/auth/register"
-            >
+            <Link className="text-indigo-600 hover:text-indigo-800" to="/auth/register">
               Register
             </Link>
           </p>

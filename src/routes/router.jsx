@@ -6,6 +6,7 @@ import AdminHome from "../pages/AdminHome";
 import AgentHome from "../pages/AgentHome";
 import UserHome from "../pages/UserHome";
 import DashboardLayout from "../Layout/DashboardLayout";
+import SendMoney from "../pages/SendMoney";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             { 
                 path: "user-home",
                 element: <UserHome />
+            },
+            { 
+                path: "user/send-money",
+                element: <SendMoney></SendMoney>
             },
         ],
     },

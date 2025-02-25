@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -14,24 +14,32 @@ const AuthProvider = ({ children }) => {
   // Make sure axios sends/receives cookies
   axios.defaults.withCredentials = true;
 
-  // Login function
+  /*
+   * ========== LOGIN FUNCTION ==========
+   * The server can return: { success, role, user } 
+   * where role is "User", "Agent", or "Admin".
+   */
   const login = async (emailOrMobile, pin) => {
     try {
-      // Include { withCredentials: true } to allow cookies
-      const response = await axios.post(`${API_URL}/login`, {
-        emailOrMobile,
-        pin,
-      }, { withCredentials: true });
+      const response = await axios.post(
+        `${API_URL}/login`,
+        { emailOrMobile, pin },
+        { withCredentials: true }
+      );
 
       if (response.data.success) {
-        // setUser in state
-        setUser(response.data.user);
+        // set user in state
+        // We'll store both the user object and the role
+        const role = response.data.role; // from the server
+        const userData = { ...response.data.user, role };
+        setUser(userData);
+
         Swal.fire({
           icon: "success",
           title: "Login Successful",
           text: "You have successfully logged in!",
         });
-        return response.data;
+        return response.data; // { success: true, role, user }
       } else {
         Swal.fire({
           icon: "error",
@@ -50,26 +58,41 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Registration function
+  /*
+   * ========== REGISTRATION FUNCTION ==========
+   * We'll call either "/register-user" or "/register-agent"
+   * depending on accountType chosen in the form.
+   */
   const register = async (name, pin, email, mobileNumber, accountType, nid) => {
     try {
-      const response = await axios.post(`${API_URL}/register`, {
-        name,
-        pin,
-        email,
-        mobileNumber,
-        accountType,
-        nid,
-      }, { withCredentials: true });
+      let endpoint;
+      if (accountType === "Agent") {
+        endpoint = "/register-agent";
+      } else {
+        // default is "User"
+        endpoint = "/register-user";
+      }
+
+      const response = await axios.post(
+        `${API_URL}${endpoint}`,
+        { name, pin, email, mobileNumber, nid },
+        { withCredentials: true }
+      );
 
       if (response.data.success) {
-        setUser(response.data.user);
+        // The server returns something like { success: true, user: {...} }
+        // This user doesn't have a 'role' from /register-user or /register-agent,
+        // so we might add it manually:
+        const role = accountType === "Agent" ? "Agent" : "User";
+        const userData = { ...response.data.user, role };
+        setUser(userData);
+
         Swal.fire({
           icon: "success",
           title: "Registration Successful",
           text: "Your account has been created!",
         });
-        return response.data;
+        return { success: true, role, user: userData };
       } else {
         Swal.fire({
           icon: "error",
@@ -88,10 +111,11 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout function
+  /*
+   * ========== LOGOUT FUNCTION ==========
+   */
   const logout = async () => {
     try {
-      // Clear the cookie from backend
       await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
       setUser(null);
       Swal.fire({
@@ -105,18 +129,25 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // OPTIONAL: If you want to verify if user is still logged in on page refresh, you could do something like:
-  //   useEffect(() => {
-  //     axios.get(`${API_URL}/profile`, { withCredentials: true })
-  //       .then(res => {
-  //         if(res.data.success) {
-  //           setUser(res.data.user);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         console.log("No valid token or can't fetch profile", err);
-  //       });
-  //   }, []);
+  /*
+   * ========== OPTIONAL AUTO-LOGIN ON REFRESH ==========
+   * If you want to check if a user is already logged in 
+   * when the app loads, you can uncomment:
+   */
+  // useEffect(() => {
+  //   axios.get(`${API_URL}/profile`, { withCredentials: true })
+  //     .then(res => {
+  //       if(res.data.success) {
+  //         const userDoc = res.data.user;
+  //         // We also have a role in res.data.role if your server returns that
+  //         // e.g. setUser({ ...userDoc, role: res.data.role })
+  //         setUser(userDoc);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log("No valid token or can't fetch profile", err);
+  //     });
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, register, logout, setUser }}>

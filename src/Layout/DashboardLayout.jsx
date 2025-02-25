@@ -18,7 +18,7 @@ import { BsCashCoin } from "react-icons/bs";
 const DashboardLayout = () => {
   const { user, logout } = useContext(AuthContext);
   // Example: user.accountType might be "Admin", "Agent", or "User"
-  const role = user?.accountType || "User";
+  const role = user?.role || "User";
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -109,7 +109,7 @@ const DashboardLayout = () => {
             <span>My Home</span>
           </Link>
           <Link
-            to="/dashboard/send-money"
+            to="/dashboard/user/send-money"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <AiOutlineSend size={20} />
@@ -159,7 +159,7 @@ const DashboardLayout = () => {
         <aside
           className={`${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 z-20 fixed md:static top-0 left-0 h-full w-64 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white transform transition-transform duration-300 flex flex-col`}
+          } md:translate-x-0 z-20 fixed md:static top-0 left-0 min-h-screen w-64 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white transform transition-transform duration-300 flex flex-col`}
         >
           {/* Sidebar Header */}
           <div className="p-4 border-b border-white/20 flex items-center justify-between md:justify-center">
@@ -196,7 +196,7 @@ const DashboardLayout = () => {
         {/* Main Content */}
         <main className="flex-1 flex flex-col">
           {/* Desktop Header */}
-          <div className="hidden md:flex items-center justify-between bg-white shadow px-6 py-4">
+          <div className="hidden md:flex items-center justify-between bg-white shadow px-6 py-4 ">
             <h1 className="text-xl font-bold text-gray-800">LenDen Dashboard</h1>
             <div className="flex items-center gap-4">
               <span className="text-gray-700 font-medium">{user?.name || "User"}</span>
