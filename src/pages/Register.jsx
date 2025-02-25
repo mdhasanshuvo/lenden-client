@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-// import { FaGoogle } from "react-icons/fa"; // Google login can be uncommented later
-// import { AuthContext } from '../provider/AuthProvider'; // Firebase integration placeholder
-// import axios from 'axios';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
-    // const { signUp, setUser, updateUser, googleAuth } = useContext(AuthContext); // Firebase placeholder
+    const { register, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [error, setError] = useState(null);
 
@@ -47,54 +45,24 @@ const Register = () => {
 
         console.log(name, pin, mobileNumber, email, accountType, nid);
 
-        // Firebase sign-up placeholder (for future Firebase integration)
-        // signUp(email, password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user);
-        //         setUser(user);
-        //         // Update user profile with name and photoURL
-        //         updateUser({ displayName: name, photoURL: photo })
-        //             .then(() => {
-        //                 const userInfo = { name: user.displayName, email: user.email, photo: user.photoURL };
-        //                 // Sending user info to your backend
-        //                 axios.post('/your-backend-url/users', userInfo)
-        //                     .then(res => {
-        //                         if (res.data.insertedId) {
-        //                             Swal.fire({
-        //                                 icon: 'success',
-        //                                 title: 'Registered Successfully!',
-        //                                 text: 'Your account has been created.',
-        //                                 confirmButtonText: 'Continue',
-        //                             }).then(() => {
-        //                                 navigate('/');
-        //                             });
-        //                         }
-        //                     })
-        //                     .catch(error => {
-        //                         console.log('Error adding user to database:', error);
-        //                         showErrorAlert(error.message);
-        //                     });
-        //             })
-        //             .catch(error => {
-        //                 console.log('Error updating user profile:', error);
-        //                 showErrorAlert(error.message);
-        //             });
-        //     })
-        //     .catch(error => {
-        //         console.log('Error during sign-up:', error.message);
-        //         showErrorAlert(error.message);
-        //     });
+        register(name, pin, email, mobileNumber, accountType, nid)
+            // .then(result => {
+            //     const user = result.user;
+            //     setUser(user);
 
-        // For now, simulate success
-        Swal.fire({
-            icon: 'success',
-            title: 'Registered Successfully!',
-            text: `Welcome to Landan, ${name}!`,
-            confirmButtonText: 'Continue',
-        }).then(() => {
-            navigate('/login'); // Redirect to login after successful registration
-        });
+            //     // For now, simulate success
+            //     Swal.fire({
+            //         icon: 'success',
+            //         title: 'Registered Successfully!',
+            //         text: `Welcome to Lenden, ${name}!`,
+            //         confirmButtonText: 'Continue',
+            //     }).then(() => {
+            //         navigate('/auth/login'); // Redirect to login after successful registration
+            //     });
+            // })
+            // .catch(error => {
+            //     showErrorAlert(error.message);
+            // });
     };
 
     return (
@@ -152,17 +120,6 @@ const Register = () => {
                     <p className="text-center mt-6 text-gray-600">
                         Already Have An Account? <Link className="text-indigo-600 hover:text-indigo-800" to='/auth/login'>Login</Link>
                     </p>
-
-                    {/* Uncomment for Google Login */}
-                    {/* <div className="text-center mt-4">
-                        <h2 className="text-center">Or, Register with</h2>
-                        <button className="btn bg-gray-200 text-indigo-600 rounded-full w-full mt-2"
-                            onClick={onClickForGoogle}
-                        >
-                            <FaGoogle className="mr-2" />
-                            Google
-                        </button>
-                    </div> */}
                 </form>
             </div>
         </div>

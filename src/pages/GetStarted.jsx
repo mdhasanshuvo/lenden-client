@@ -7,14 +7,14 @@ const GetStarted = () => {
       <div className="w-full max-w-6xl mx-auto px-6 sm:px-12">
         {/* Brand Cover */}
         <header className="text-center text-white py-12">
-          <h1 className="text-6xl font-bold font-mono">LanDan</h1>
+          <h1 className="text-6xl font-bold font-mono">LenDen</h1>
           <p className="text-xl mt-2">Your gateway to seamless financial management.</p>
         </header>
 
         {/* Main Content */}
         <div className="text-center p-8 bg-white rounded-xl shadow-lg max-w-md w-full mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Welcome to Landan
+            Welcome to Lenden
           </h2>
           <p className="text-gray-600 text-lg mb-6">
             Explore easy and secure financial services to manage your money. Let's get you started with Landan!

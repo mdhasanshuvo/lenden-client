@@ -1,100 +1,108 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import React, { createContext, useEffect, useState } from "react";
-import { app } from "../firebase/firebase.config";
-// import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+// import axios from "axios";
 
+// Create the context
 export const AuthContext = createContext();
 
+// Dummy API base URL (replace this with your actual API)
+const API_URL = "https://your-backend-api.com"; // Replace with your MongoDB API URL
 
-const AuthProvider = ({ children }) => {
+// Provide AuthContext to your app
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+//   const navigate = useNavigate();
 
-    // const axiosPublic = useAxiosPublic();
+  // Dummy login function (simulates checking against MongoDB database)
+  const login = async (emailOrMobile, pin) => {
+    // try {
+    //   const response = await axios.post(`${API_URL}/login`, {
+    //     emailOrMobile,
+    //     pin,
+    //   });
+    //   if (response.data.success) {
+    //     setUser(response.data.user);
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Login Successful",
+    //       text: "You have successfully logged in!",
+    //     });
+    //     navigate("/dashboard"); // Redirect to the dashboard or home page
+    //   } else {
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Login Failed",
+    //       text: response.data.message,
+    //     });
+    //   }
+    // } catch (error) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: error.message,
+    //   });
+    // }
+  };
 
+  // Dummy signup function (simulates storing user data in MongoDB)
+  const register = async (name, pin, email, mobile, accountType, nid) => {
+    // try {
+    //   const response = await axios.post(`${API_URL}/register`, {
+    //     name,
+    //     pin,
+    //     email,
+    //     mobile,
+    //     accountType,
+    //     nid,
+    //   });
+    //   if (response.data.success) {
+    //     setUser(response.data.user);
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Registration Successful",
+    //       text: "Your account has been created!",
+    //     });
+    //     navigate("/login"); // Redirect to login page after successful registration
+    //   } else {
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Registration Failed",
+    //       text: response.data.message,
+    //     });
+    //   }
+    // } catch (error) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: error.message,
+    //   });
+    // }
+  };
 
-    const auth = getAuth(app);
+  // Dummy logout function
+  const logout = () => {
+    setUser(null); // Clear the user from state
+    navigate("/login"); // Redirect to login page
+    Swal.fire({
+      icon: "success",
+      title: "Logged Out",
+      text: "You have successfully logged out.",
+    });
+  };
 
-    const [user, setUser] = useState(null);
-
-    const [loading, setLoading] = useState(true);
-
-    const [email, setEmail] = useState('')
-
-    console.log(user);
-
-
-    const signUp = (email, password) => {
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
-    }
-
-    const logout = () => {
-        setLoading(true);
-        signOut(auth);
-    }
-
-    const signIn = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password)
-    }
-
-    const updateUser = (updatedData) => {
-        return updateProfile(auth.currentUser, updatedData);
-    }
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-            console.log('current user', currentUser);
-            // if (currentUser) {
-            //     const userInfo = { email: currentUser.email };
-            //     axiosPublic.post('/jwt', userInfo)
-            //         .then(res => {
-            //             if (res.data.token) {
-            //                 localStorage.setItem('access-token', res.data.token);
-            //             }
-            //         })
-
-            // }
-            // else {
-            //     localStorage.removeItem('access-token');
-            // }
-            setLoading(false);
-        });
-        return () => {
-            return unsubscribe();
-        }
-    }, []);
-
-    const [theme, setTheme] = React.useState('light');
-    const toggleTheme = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
-    // initially set the theme and "listen" for changes to apply them to the HTML tag
-    React.useEffect(() => {
-        document.querySelector('html').setAttribute('data-theme', theme);
-    }, [theme]);
-
-
-
-    const authValues = {
+  return (
+    <AuthContext.Provider
+      value={{
         user,
-        setUser,
-        signUp,
+        login,
+        register,
         logout,
-        signIn,
-        loading,
-        updateUser,
-        email,
-        setEmail,
-        theme,
-        toggleTheme
-    }
-
-    return (
-        <AuthContext.Provider value={authValues}>
-            {children}
-        </AuthContext.Provider>
-    );
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider; 
