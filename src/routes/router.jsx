@@ -12,6 +12,7 @@ import CashIn from "../pages/CashIn";
 import ManageUsers from "../pages/ManageUsers";
 import ManageAgents from "../pages/ManageAgents";
 import AgentApproval from "../pages/AgentApproval";
+import RequestCash from "../pages/RequestCash";
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
             {
                 path: "agent/cash-in-users",
                 element: <CashIn></CashIn>
+            },
+            {
+                path: "agent/cash-request",
+                element: <RequestCash></RequestCash>
+            },
+            {
+                path: "admin/manage-users",
+                element: <ManageUsers />
             },
             {
                 path: "admin/manage-users",

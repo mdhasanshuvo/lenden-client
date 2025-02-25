@@ -89,6 +89,13 @@ const DashboardLayout = () => {
             <span>Cash-In (Users)</span>
           </Link>
           <Link
+            to="/dashboard/agent/cash-request"
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
+          >
+            <BsCashCoin size={20} />
+            <span>Cash Request</span>
+          </Link>
+          <Link
             to="/dashboard/agent-balance"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
