@@ -49,14 +49,14 @@ const DashboardLayout = () => {
             <span>Admin Home</span>
           </Link>
           <Link
-            to="/dashboard/manage-users"
+            to="/dashboard/admin/manage-users"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <FiUser size={20} />
             <span>Manage Users</span>
           </Link>
           <Link
-            to="/dashboard/manage-agents"
+            to="/dashboard/admin/manage-agents"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <FiSettings size={20} />
@@ -82,7 +82,7 @@ const DashboardLayout = () => {
             <span>Agent Home</span>
           </Link>
           <Link
-            to="/dashboard/cash-in-users"
+            to="/dashboard/agent/cash-in-users"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             <BsCashCoin size={20} />

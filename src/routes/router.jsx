@@ -8,6 +8,9 @@ import UserHome from "../pages/UserHome";
 import DashboardLayout from "../Layout/DashboardLayout";
 import SendMoney from "../pages/SendMoney";
 import CashOut from "../pages/CashOut";
+import CashIn from "../pages/CashIn";
+import ManageUsers from "../pages/ManageUsers";
+import ManageAgents from "../pages/ManageAgents";
 
 const router = createBrowserRouter([
     {
@@ -26,25 +29,37 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
-            { 
+            {
                 path: "admin-home",
                 element: <AdminHome></AdminHome>
             },
-            { 
+            {
                 path: "agent-home",
-                element: <AgentHome /> 
+                element: <AgentHome />
             },
-            { 
+            {
                 path: "user-home",
                 element: <UserHome />
             },
-            { 
+            {
                 path: "user/send-money",
                 element: <SendMoney></SendMoney>
             },
-            { 
+            {
                 path: "user/cash-out",
                 element: <CashOut></CashOut>
+            },
+            {
+                path: "agent/cash-in-users",
+                element: <CashIn></CashIn>
+            },
+            {
+                path: "admin/manage-users",
+                element: <ManageUsers />
+            },
+            {
+                path: "admin/manage-agents",
+                element: <ManageAgents />
             },
         ],
     },
