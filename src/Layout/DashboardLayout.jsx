@@ -14,12 +14,19 @@ import { AiOutlineSend } from "react-icons/ai";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { BsCashCoin } from "react-icons/bs";
 import { GrTransaction } from "react-icons/gr";
+import Loading from "../pages/Loading";
 // import { Helmet } from "react-helmet";
 
 const DashboardLayout = () => {
   const { user, logout } = useContext(AuthContext);
+
+  if(!user){
+    return <Loading></Loading>;
+}
+
   // Example: user.accountType might be "Admin", "Agent", or "User"
-  const role = user?.role || "User";
+  const role = user?.role;
+  console.log(role)
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();

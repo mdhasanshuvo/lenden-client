@@ -13,6 +13,24 @@ const AuthProvider = ({ children }) => {
 
   // Make sure axios sends/receives cookies
   axios.defaults.withCredentials = true;
+  
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/profile`, { withCredentials: true });
+        if (res.data.success) {
+          // Suppose the backend returns { success: true, user: {...}, role: "Admin"/"User"/"Agent" }
+          // or maybe the user doc includes user.role
+          const role = res.data.role || res.data.user.role || "User";
+          setUser({ ...res.data.user, role });
+        }
+      } catch (err) {
+        console.log("No valid session or can't fetch profile", err);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   /*
    * ========== LOGIN FUNCTION ==========
@@ -29,18 +47,17 @@ const AuthProvider = ({ children }) => {
 
       if (response.data.success) {
         // set user in state
-        // We'll store both the user object and the role
-        const role = response.data.role; // from the server
-        const userData = { ...response.data.user, role };
-        setUser(userData);
+        const role = response.data.role;
+        setUser({ ...response.data.user, role });
 
         Swal.fire({
           icon: "success",
           title: "Login Successful",
-          text: "You have successfully logged in!",
+          text: response.data.message || "You have successfully logged in!",
         });
         return response.data; // { success: true, role, user }
       } else {
+        // The backend responded with success: false
         Swal.fire({
           icon: "error",
           title: "Login Failed",
@@ -49,14 +66,21 @@ const AuthProvider = ({ children }) => {
         throw new Error(response.data.message);
       }
     } catch (error) {
+      // The backend might have sent a custom error message in error.response.data.message
+      let errMsg = error.message;
+      if (error.response && error.response.data && error.response.data.message) {
+        errMsg = error.response.data.message;
+      }
+
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error.message,
+        text: errMsg,
       });
-      throw error;
+      throw error; // re-throw to handle it in upper layers if needed
     }
   };
+
 
   /*
    * ========== REGISTRATION FUNCTION ==========

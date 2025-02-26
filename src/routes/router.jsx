@@ -18,6 +18,7 @@ import WithdrawRequest from "../pages/WithdrawRequest";
 import ManageAgentWithdrawRequests from "../pages/ManageAgentWithdrawRequests";
 import UserTransactions from "../pages/UserTransactions";
 import AgentTransactions from "../pages/AgentTransactions";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
                 path: "admin-home",
