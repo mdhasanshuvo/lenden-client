@@ -72,6 +72,7 @@ const Login = () => {
               type="password"
               placeholder="Enter your 5-digit PIN"
               className="input input-bordered w-full"
+              defaultValue={12345}
               required
             />
           </div>

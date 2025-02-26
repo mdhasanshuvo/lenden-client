@@ -60,10 +60,10 @@ const Register = () => {
             title: "Agent Registered",
             text: "Waiting for admin approval if required.",
           });
-          navigate("/dashboard/agent-home");
+          navigate("/auth/login");
         } else {
           // default user
-          navigate("/dashboard/user-home");
+          navigate("/auth/login");
         }
       } else {
         throw new Error(responseData.message || "Registration failed");
@@ -101,7 +101,7 @@ const Register = () => {
             </label>
             <input
               name="pin"
-              type="text"
+              type="number"
               placeholder="Enter your 5-digit PIN"
               className="input input-bordered w-full"
               required
@@ -115,7 +115,7 @@ const Register = () => {
             </label>
             <input
               name="mobileNumber"
-              type="text"
+              type="number"
               placeholder="Enter your mobile number"
               className="input input-bordered w-full"
               required
@@ -159,7 +159,7 @@ const Register = () => {
             </label>
             <input
               name="nid"
-              type="text"
+              type="number"
               placeholder="Enter your NID"
               className="input input-bordered w-full"
               required

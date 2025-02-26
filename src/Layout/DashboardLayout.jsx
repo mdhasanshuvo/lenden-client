@@ -76,6 +76,13 @@ const DashboardLayout = () => {
             <FiSettings size={20} />
             <span>Agent Cash Request</span>
           </Link>
+          <Link
+            to="/dashboard/admin/agent-Withdraw-requests"
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
+          >
+            <FiSettings size={20} />
+            <span>Agent Withdraw Request</span>
+          </Link>
         </>
       );
     } else if (role === "Agent") {
@@ -101,6 +108,13 @@ const DashboardLayout = () => {
           >
             <BsCashCoin size={20} />
             <span>Cash Request</span>
+          </Link>
+          <Link
+            to="/dashboard/agent/withdraw-request"
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
+          >
+            <BsCashCoin size={20} />
+            <span>Withdraw Request</span>
           </Link>
           <Link
             to="/dashboard/agent-balance"

@@ -14,6 +14,8 @@ import ManageAgents from "../pages/ManageAgents";
 import AgentApproval from "../pages/AgentApproval";
 import RequestCash from "../pages/RequestCash";
 import ManageAgentRequests from "../pages/ManageAgentRequests";
+import WithdrawRequest from "../pages/WithdrawRequest";
+import ManageAgentWithdrawRequests from "../pages/ManageAgentWithdrawRequests";
 
 const router = createBrowserRouter([
     {
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
                 element: <RequestCash></RequestCash>
             },
             {
+                path: "agent/withdraw-request",
+                element: <WithdrawRequest></WithdrawRequest>
+            },
+            {
                 path: "admin/manage-users",
                 element: <ManageUsers />
             },
@@ -79,6 +85,10 @@ const router = createBrowserRouter([
             {
                 path: "admin/agent-requests",
                 element: <ManageAgentRequests></ManageAgentRequests>
+            },
+            {
+                path: "admin/agent-Withdraw-requests",
+                element: <ManageAgentWithdrawRequests></ManageAgentWithdrawRequests>
             },
         ],
     },
