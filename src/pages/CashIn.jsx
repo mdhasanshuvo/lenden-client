@@ -5,8 +5,9 @@ import { FiArrowLeft } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000"; // Adjust to your backend
+
 
 const CashIn = () => {
   const { user } = useContext(AuthContext);
@@ -23,12 +24,13 @@ const CashIn = () => {
   const [amount, setAmount] = useState("");
   const [pin, setPin] = useState("");
   const [reference, setReference] = useState("");
+  const axiosSecure = useAxios();
 
   // On mount, fetch user list (only if agent is logged in)
   useEffect(() => {
     // We assume your backend has an endpoint to get all users or specifically "accountType=User".
-    axios
-      .get(`${API_URL}/users?accountType=User`, { withCredentials: true })
+    axiosSecure
+      .get(`/users?accountType=User`, { withCredentials: true })
       .then((res) => {
         if (res.data.success && res.data.users) {
           // We map them to something easy to display
@@ -73,8 +75,8 @@ const CashIn = () => {
     }
 
     try {
-      const res = await axios.post(
-        `${API_URL}/transactions/cash-in`,
+      const res = await axiosSecure.post(
+        `/transactions/cash-in`,
         {
           userPhone: selectedUser.phone, 
           amount,

@@ -6,6 +6,7 @@ import { FaMoneyBillWave, FaMoneyCheckAlt, FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MdPayment } from "react-icons/md";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
@@ -14,6 +15,7 @@ const UserHome = () => {
   const [balance, setBalance] = useState(0);
   const [showBalance, setShowBalance] = useState(false);
   const [recentTx, setRecentTx] = useState([]);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetchProfile();
@@ -36,8 +38,8 @@ const UserHome = () => {
       // If your user object has _id
       // e.g. GET /transactions?userId=<USER_ID>&limit=5
       if (!user?._id) return;
-      const res = await axios.get(
-        `${API_URL}/transactions?userId=${user._id}&limit=5`,
+      const res = await axiosSecure.get(
+        `/transactions?userId=${user._id}&limit=5`,
         { withCredentials: true }
       );
       if (res.data.success) {

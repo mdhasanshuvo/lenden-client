@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
@@ -9,6 +10,7 @@ const RequestCash = () => {
   const { user } = useContext(AuthContext); // user should be an agent
   const [balance, setBalance] = useState(0);
   const [reason, setReason] = useState("");
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     // Optionally fetch current agent profile to show their latest balance
@@ -29,8 +31,8 @@ const RequestCash = () => {
   const handleRequest = async () => {
     try {
       // We assume each request is for a fixed 100,000 Taka
-      const res = await axios.post(
-        `${API_URL}/agents/cash-request`,
+      const res = await axiosSecure.post(
+        `/agents/cash-request`,
         {
           amount: 100000,
           reason

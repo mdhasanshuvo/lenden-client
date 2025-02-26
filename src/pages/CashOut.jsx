@@ -5,11 +5,14 @@ import { FiArrowLeft } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000"; // your server URL
 
 const CashOut = () => {
   const { user } = useContext(AuthContext);
+  
+  const axiosSecure = useAxios();
 
   // Steps: 1 = select agent, 2 = enter amount, 3 = confirm + PIN
   const [step, setStep] = useState(1);
@@ -40,8 +43,8 @@ const CashOut = () => {
 
     // 2) Fetch all approved agents
     // We'll assume you have /agents?isApproved=true or something like that.
-    axios
-      .get(`${API_URL}/agents?approved=true`, { withCredentials: true })
+    axiosSecure
+      .get(`/agents?approved=true`, { withCredentials: true })
       .then((res) => {
         if (res.data.success && res.data.agents) {
           // Format for easy usage
@@ -102,8 +105,8 @@ const CashOut = () => {
     }
 
     try {
-      const res = await axios.post(
-        `${API_URL}/transactions/cash-out`,
+      const res = await axiosSecure.post(
+        `/transactions/cash-out`,
         {
           agentPhone: selectedAgent.phone,
           amount,

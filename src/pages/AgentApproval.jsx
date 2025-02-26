@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
 const AgentApproval = () => {
     const [agents, setAgents] = useState([]);
+    const axiosSecure = useAxios();
 
     useEffect(() => {
         fetchUnapprovedAgents();
@@ -14,7 +16,7 @@ const AgentApproval = () => {
     const fetchUnapprovedAgents = async () => {
         try {
             // GET /admin/agent-approvals => isApproved=false
-            const res = await axios.get(`${API_URL}/admin/agent-approvals`, { withCredentials: true });
+            const res = await axiosSecure.get(`/admin/agent-approvals`, { withCredentials: true });
             if (res.data.success) {
                 setAgents(res.data.agents);
             }
@@ -25,8 +27,8 @@ const AgentApproval = () => {
 
     const handleApprove = async (agentId) => {
         try {
-            const res = await axios.patch(
-                `${API_URL}/admin/agents/${agentId}/approve`,
+            const res = await axiosSecure.patch(
+                `/admin/agents/${agentId}/approve`,
                 {},
                 { withCredentials: true }
             );
@@ -44,8 +46,8 @@ const AgentApproval = () => {
 
     const handleReject = async (agentId) => {
         try {
-            const res = await axios.delete(
-                `${API_URL}/admin/agents/${agentId}/reject`,
+            const res = await axiosSecure.delete(
+                `/admin/agents/${agentId}/reject`,
                 { withCredentials: true }
             );
             if (res.data.success) {

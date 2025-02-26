@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
@@ -10,6 +11,8 @@ const ManageAgents = () => {
   const [showTxModal, setShowTxModal] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
+  
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetchAgents();
@@ -18,7 +21,7 @@ const ManageAgents = () => {
   const fetchAgents = async () => {
     try {
       // call /admin/agents?search=...
-      const res = await axios.get(`${API_URL}/admin/agents?search=${search}`, { withCredentials: true });
+      const res = await axiosSecure.get(`/admin/agents?search=${search}`, { withCredentials: true });
       if (res.data.success) {
         setAgents(res.data.agents);
       }
@@ -30,8 +33,8 @@ const ManageAgents = () => {
   const toggleBlock = async (agentId, currentStatus) => {
     try {
       const newStatus = !currentStatus;
-      const res = await axios.patch(
-        `${API_URL}/admin/agents/${agentId}/block`,
+      const res = await axiosSecure.patch(
+        `/admin/agents/${agentId}/block`,
         { isBlocked: newStatus },
         { withCredentials: true }
       );
@@ -51,7 +54,7 @@ const ManageAgents = () => {
     setSelectedAgent(agent);
     try {
       // fetch transactions by agent
-      const res = await axios.get(`${API_URL}/transactions?agentId=${agent._id}`, { withCredentials: true });
+      const res = await axiosSecure.get(`/transactions?agentId=${agent._id}`, { withCredentials: true });
       if (res.data.success) {
         setTransactions(res.data.transactions);
         setShowTxModal(true);

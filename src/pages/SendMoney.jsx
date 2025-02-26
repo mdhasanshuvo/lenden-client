@@ -5,6 +5,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFillLockFill } from "react-icons/bs";
 import { AuthContext } from "../provider/AuthProvider"; // or wherever it is
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000"; // Adjust to your backend
 
@@ -28,6 +29,8 @@ const SendMoney = () => {
     const [reference, setReference] = useState("");
     const [pin, setPin] = useState("");
 
+    const axiosSecure = useAxios();
+
     // On mount, fetch user’s balance & the list of all 'User' accounts
     useEffect(() => {
         axios
@@ -41,8 +44,8 @@ const SendMoney = () => {
             .catch((error) => console.log("Profile fetch error:", error));
 
         // fetch the user contacts who are accountType=User
-        axios
-            .get(`${API_URL}/users?accountType=User`, { withCredentials: true })
+        axiosSecure
+            .get(`/users?accountType=User`, { withCredentials: true })
             .then((res) => {
                 if (res.data.success && res.data.users) {
                     const mapped = res.data.users.map((u) => ({
@@ -104,8 +107,8 @@ const SendMoney = () => {
         }
 
         try {
-            const res = await axios.post(
-                `${API_URL}/transactions/send-money`,
+            const res = await axiosSecure.post(
+                `/transactions/send-money`,
                 {
                     recipientPhone: selectedRecipient.phone,
                     amount,

@@ -2,10 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
 const ManageUsers = () => {
+  
+  const axiosSecure = useAxios();
   const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
@@ -21,7 +24,7 @@ const ManageUsers = () => {
   const fetchUsers = async () => {
     try {
       // call /admin/users?search=012345...
-      const res = await axios.get(`${API_URL}/admin/users?search=${search}`, { withCredentials: true });
+      const res = await axiosSecure.get(`/admin/users?search=${search}`, { withCredentials: true });
       if (res.data.success) {
         setUsers(res.data.users);
       }
@@ -34,8 +37,8 @@ const ManageUsers = () => {
   const toggleBlock = async (userId, currentStatus) => {
     try {
       const newStatus = !currentStatus;
-      const res = await axios.patch(
-        `${API_URL}/admin/users/${userId}/block`,
+      const res = await axiosSecure.patch(
+        `/admin/users/${userId}/block`,
         { isBlocked: newStatus },
         { withCredentials: true }
       );
@@ -56,7 +59,7 @@ const ManageUsers = () => {
   const viewTransactions = async (usr) => {
     setSelectedUser(usr);
     try {
-      const res = await axios.get(`${API_URL}/transactions?userId=${usr._id}`, { withCredentials: true });
+      const res = await axiosSecure.get(`/transactions?userId=${usr._id}`, { withCredentials: true });
       if (res.data.success) {
         setTransactions(res.data.transactions);
         setShowTxModal(true);

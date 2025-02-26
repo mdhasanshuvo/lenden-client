@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
 const ManageAgentWithdrawRequests = () => {
   const [requests, setRequests] = useState([]);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetchRequests();
@@ -13,7 +15,7 @@ const ManageAgentWithdrawRequests = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(`${API_URL}/admin/agent-withdraw-requests?status=pending`, {
+      const res = await axiosSecure.get(`/admin/agent-withdraw-requests?status=pending`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -24,11 +26,11 @@ const ManageAgentWithdrawRequests = () => {
     }
   };
 
-  const handleApprove = async (requestId) => {
+  const handleApprove = async (requestId,amount) => {
     try {
-      const res = await axios.patch(
-        `${API_URL}/admin/agent-withdraw-requests/${requestId}/approve`,
-        {},
+      const res = await axiosSecure.patch(
+        `/admin/agent-withdraw-requests/${requestId}/approve`,
+        {amount},
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -45,8 +47,8 @@ const ManageAgentWithdrawRequests = () => {
 
   const handleReject = async (requestId) => {
     try {
-      const res = await axios.patch(
-        `${API_URL}/admin/agent-withdraw-requests/${requestId}/reject`,
+      const res = await axiosSecure.patch(
+        `/admin/agent-withdraw-requests/${requestId}/reject`,
         {},
         { withCredentials: true }
       );
@@ -86,7 +88,8 @@ const ManageAgentWithdrawRequests = () => {
                 <td className="space-x-2">
                   <button
                     className="btn btn-sm bg-green-600 hover:bg-green-700 text-white"
-                    onClick={() => handleApprove(req._id)}
+                    onClick={() => handleApprove(req._id,req.amount)}
+                    
                   >
                     Approve
                   </button>

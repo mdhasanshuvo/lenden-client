@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../provider/AuthProvider";
 import { motion } from "framer-motion";
 import { FaExchangeAlt } from "react-icons/fa"; 
+import useAxios from "../Hook/useAxios";
 // Example icon for transaction
 
 const API_URL = "http://localhost:5000";
@@ -11,6 +12,7 @@ const UserTransactions = () => {
   const { user } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetchAllTransactions();
@@ -20,8 +22,8 @@ const UserTransactions = () => {
     try {
       setLoading(true);
       // if user?._id, pass userId plus limit=100
-      const res = await axios.get(
-        `${API_URL}/transactions?userId=${user?._id}&limit=100`,
+      const res = await axiosSecure.get(
+        `/transactions?userId=${user?._id}&limit=100`,
         { withCredentials: true }
       );
       if (res.data.success) {

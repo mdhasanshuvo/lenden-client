@@ -5,6 +5,7 @@ import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FaUsers, FaUserShield, FaUserCheck, FaMoneyBillWave, FaCogs, FaHandHoldingUsd } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
@@ -13,6 +14,7 @@ const AdminHome = () => {
   const [adminIncome, setAdminIncome] = useState(0);
   const [totalSystemMoney, setTotalSystemMoney] = useState(0);
   const [showStats, setShowStats] = useState(false);
+  const axiosSecure = useAxios();
 
   // For recent users/agents
   const [recentUsers, setRecentUsers] = useState([]);
@@ -26,7 +28,7 @@ const AdminHome = () => {
 
   const fetchSystemStats = async () => {
     try {
-      const res = await axios.get(`${API_URL}/admin/system-stats`, { withCredentials: true });
+      const res = await axiosSecure.get(`/admin/system-stats`, { withCredentials: true });
       if (res.data.success) {
         setAdminIncome(res.data.adminIncome || 0);
         setTotalSystemMoney(res.data.totalSystemMoney || 0);
@@ -39,7 +41,7 @@ const AdminHome = () => {
   const fetchRecentUsers = async () => {
     try {
       // e.g. /admin/recent-users?limit=5
-      const res = await axios.get(`${API_URL}/admin/recent-users?limit=5`, { withCredentials: true });
+      const res = await axiosSecure.get(`/admin/recent-users?limit=5`, { withCredentials: true });
       if (res.data.success) {
         setRecentUsers(res.data.users || []);
       }
@@ -51,7 +53,7 @@ const AdminHome = () => {
   const fetchRecentAgents = async () => {
     try {
       // e.g. /admin/recent-agents?limit=5
-      const res = await axios.get(`${API_URL}/admin/recent-agents?limit=5`, { withCredentials: true });
+      const res = await axiosSecure.get(`/admin/recent-agents?limit=5`, { withCredentials: true });
       if (res.data.success) {
         setRecentAgents(res.data.agents || []);
       }

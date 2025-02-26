@@ -5,8 +5,7 @@ import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FaUserPlus, FaMoneyCheck, FaHandHoldingUsd } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
-const API_URL = "http://localhost:5000";
+import useAxios from "../Hook/useAxios";
 
 const AgentHome = () => {
   const { user } = useContext(AuthContext);
@@ -19,23 +18,25 @@ const AgentHome = () => {
     fetchTransactions();
   }, []);
 
+  const axiosSecure = useAxios();
+
   const fetchAgentProfile = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/profile`, { withCredentials: true });
-      if (res.data.success && res.data.user.agentIncome !== undefined) {
-        setAgentIncome(res.data.user.agentIncome);
-      }
-    } catch (error) {
-      console.error("AgentHome fetch error:", error);
-    }
-  };
+        try {
+            const res = await axiosSecure.get('/profile', { withCredentials: true });
+            if (res.data.success && res.data.user.agentIncome !== undefined) {
+                setAgentIncome(res.data.user.agentIncome);
+            }
+        } catch (error) {
+            console.error("AgentHome fetch error:", error);
+        }
+    };
 
   const fetchTransactions = async () => {
     try {
       // For agent: /transactions?agentId=<AGENT_ID>&limit=5
       if (!user?._id) return;
-      const res = await axios.get(
-        `${API_URL}/transactions?agentId=${user._id}&limit=5`,
+      const res = await axiosSecure.get(
+        `/transactions?agentId=${user._id}&limit=5`,
         { withCredentials: true }
       );
       if (res.data.success) {

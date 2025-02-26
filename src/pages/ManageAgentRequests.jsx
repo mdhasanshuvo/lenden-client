@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000";
 
 const ManageAgentRequests = () => {
   const [requests, setRequests] = useState([]);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetchRequests();
@@ -14,7 +16,7 @@ const ManageAgentRequests = () => {
   const fetchRequests = async () => {
     try {
       // GET /admin/agent-cash-requests?status=pending
-      const res = await axios.get(`${API_URL}/admin/agent-cash-requests?status=pending`, {
+      const res = await axiosSecure.get(`/admin/agent-cash-requests?status=pending`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -28,8 +30,8 @@ const ManageAgentRequests = () => {
   // Approve request
   const handleApprove = async (requestId) => {
     try {
-      const res = await axios.patch(
-        `${API_URL}/admin/agent-cash-requests/${requestId}/approve`,
+      const res = await axiosSecure.patch(
+        `/admin/agent-cash-requests/${requestId}/approve`,
         {},
         { withCredentials: true }
       );
@@ -49,8 +51,8 @@ const ManageAgentRequests = () => {
   const handleReject = async (requestId) => {
     try {
       // or DELETE if you prefer. This example uses PATCH to set status=rejected
-      const res = await axios.patch(
-        `${API_URL}/admin/agent-cash-requests/${requestId}/reject`,
+      const res = await axiosSecure.patch(
+        `/admin/agent-cash-requests/${requestId}/reject`,
         {},
         { withCredentials: true }
       );

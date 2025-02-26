@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxios from "../Hook/useAxios";
 
 const API_URL = "http://localhost:5000"; // or your actual server URL
 
@@ -10,6 +11,7 @@ const WithdrawRequest = () => {
   const [agentIncome, setAgentIncome] = useState(0);
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     // Optionally fetch agent profile on mount to show agentIncome
@@ -41,8 +43,8 @@ const WithdrawRequest = () => {
     }
 
     try {
-      const res = await axios.post(
-        `${API_URL}/agents/withdraw-request`,
+      const res = await axiosSecure.post(
+        `/agents/withdraw-request`,
         { amount: numericAmount, reason },
         { withCredentials: true }
       );
