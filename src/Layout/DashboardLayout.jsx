@@ -13,6 +13,7 @@ import { MdDashboard } from "react-icons/md";
 import { AiOutlineSend } from "react-icons/ai";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { BsCashCoin } from "react-icons/bs";
+import { GrTransaction } from "react-icons/gr";
 // import { Helmet } from "react-helmet";
 
 const DashboardLayout = () => {
@@ -117,11 +118,11 @@ const DashboardLayout = () => {
             <span>Withdraw Request</span>
           </Link>
           <Link
-            to="/dashboard/agent-balance"
+            to="/dashboard/agent/transactions"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
-            <FiSettings size={20} />
-            <span>Agent Balance</span>
+            <GrTransaction size={20} />
+            <span>Transactions</span>
           </Link>
         </>
       );
@@ -151,11 +152,11 @@ const DashboardLayout = () => {
             <span>Cash Out</span>
           </Link>
           <Link
-            to="/dashboard/add-money"
+            to="/dashboard/user/Transactions"
             className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-indigo-600"
           >
-            <BsCashCoin size={20} />
-            <span>Add Money</span>
+            <GrTransaction size={20} />
+            <span>Transactions</span>
           </Link>
         </>
       );

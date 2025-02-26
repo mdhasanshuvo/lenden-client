@@ -71,21 +71,21 @@ const AgentHome = () => {
       {/* Shortcut grid */}
       <div className="grid grid-cols-3 gap-4 p-4">
         <Link
-          to="/dashboard/cash-in-users"
+          to="/dashboard/agent/cash-in-users"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
           <FaUserPlus className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Cash-In (User)</span>
         </Link>
         <Link
-          to="/dashboard/agent-cash-request"
+          to="/dashboard/agent/cash-request"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
           <FaMoneyCheck className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Request Cash</span>
         </Link>
         <Link
-          to="/dashboard/agent-withdraw-request"
+          to="/dashboard/agent/withdraw-request"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
           <FaHandHoldingUsd className="text-pink-500 mb-2" size={28} />
@@ -115,7 +115,7 @@ const AgentHome = () => {
             </ul>
           )}
           <div className="mt-3 text-right">
-            <Link to="/dashboard/agent-transactions" className="text-pink-600 hover:underline">
+            <Link to="/dashboard/agent/Transactions" className="text-pink-600 hover:underline">
               Show All Transactions
             </Link>
           </div>

@@ -86,27 +86,27 @@ const AdminHome = () => {
 
       {/* Shortcut grid */}
       <div className="grid grid-cols-3 gap-4 p-4">
-        <Link to="/dashboard/manage-users" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/manage-users" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaUsers className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Manage Users</span>
         </Link>
-        <Link to="/dashboard/manage-agents" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/manage-agents" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaUserShield className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Manage Agents</span>
         </Link>
-        <Link to="/dashboard/agent-approvals" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/agent-approvals" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaUserCheck className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Approvals</span>
         </Link>
-        <Link to="/dashboard/agent-requests" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/agent-requests" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaMoneyBillWave className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Cash Requests</span>
         </Link>
-        <Link to="/dashboard/agent-withdraw-requests" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/agent-withdraw-requests" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaHandHoldingUsd className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Withdraw Req</span>
         </Link>
-        <Link to="/dashboard/admin-settings" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
+        <Link to="/dashboard/admin/admin-settings" className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg">
           <FaCogs className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Settings</span>
         </Link>
@@ -130,7 +130,7 @@ const AdminHome = () => {
               </ul>
             )}
             <div className="mt-2 text-right">
-              <Link to="/dashboard/manage-users" className="text-pink-600 hover:underline text-sm">
+              <Link to="/dashboard/admin/manage-users" className="text-pink-600 hover:underline text-sm">
                 Show All Users
               </Link>
             </div>
@@ -151,7 +151,7 @@ const AdminHome = () => {
               </ul>
             )}
             <div className="mt-2 text-right">
-              <Link to="/dashboard/manage-agents" className="text-pink-600 hover:underline text-sm">
+              <Link to="/dashboard/admin/manage-agents" className="text-pink-600 hover:underline text-sm">
                 Show All Agents
               </Link>
             </div>

@@ -5,6 +5,7 @@ import { FiEyeOff, FiEye } from "react-icons/fi";
 import { FaMoneyBillWave, FaMoneyCheckAlt, FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { MdPayment } from "react-icons/md";
 
 const API_URL = "http://localhost:5000";
 
@@ -72,14 +73,14 @@ const UserHome = () => {
       {/* Shortcut grid */}
       <div className="grid grid-cols-3 gap-4 p-4">
         <Link
-          to="/dashboard/send-money"
+          to="/dashboard/user/send-money"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
           <FaMoneyBillWave className="text-pink-500 mb-2" size={28} />
           <span className="text-sm font-semibold text-gray-700">Send Money</span>
         </Link>
         <Link
-          to="/dashboard/cash-out"
+          to="/dashboard/user/cash-out"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
           <FaMoneyCheckAlt className="text-pink-500 mb-2" size={28} />
@@ -89,8 +90,8 @@ const UserHome = () => {
           to="/dashboard/add-money"
           className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
         >
-          <FaPlusSquare className="text-pink-500 mb-2" size={28} />
-          <span className="text-sm font-semibold text-gray-700">Add Money</span>
+          <MdPayment className="text-pink-500 mb-2" size={28} />
+          <span className="text-sm font-semibold text-gray-700">Payment (Beta)</span>
         </Link>
       </div>
 
@@ -118,7 +119,7 @@ const UserHome = () => {
             </ul>
           )}
           <div className="mt-3 text-right">
-            <Link to="/dashboard/user-transactions" className="text-pink-600 hover:underline">
+            <Link to="/dashboard/user/Transactions" className="text-pink-600 hover:underline">
               Show All Transactions
             </Link>
           </div>
