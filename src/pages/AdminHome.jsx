@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://lenden-server-seven.vercel.app";
 
 const AdminHome = () => {
   const { user } = useContext(AuthContext);

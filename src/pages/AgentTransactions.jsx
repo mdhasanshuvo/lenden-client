@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { FaExchangeAlt } from "react-icons/fa";
 import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://lenden-server-seven.vercel.app";
 
 const AgentTransactions = () => {
   const { user } = useContext(AuthContext);

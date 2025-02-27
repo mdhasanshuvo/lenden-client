@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
-const API_URL = "http://localhost:5000"; // your server URL
+const API_URL = "https://lenden-server-seven.vercel.app"; // your server URL
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

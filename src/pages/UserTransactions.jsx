@@ -6,7 +6,7 @@ import { FaExchangeAlt } from "react-icons/fa";
 import useAxios from "../Hook/useAxios";
 // Example icon for transaction
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://lenden-server-seven.vercel.app";
 
 const UserTransactions = () => {
   const { user } = useContext(AuthContext);

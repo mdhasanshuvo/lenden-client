@@ -7,7 +7,7 @@ import { BsFillLockFill } from "react-icons/bs";
 import { AuthContext } from "../provider/AuthProvider";
 import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000"; // your server URL
+const API_URL = "https://lenden-server-seven.vercel.app"; // your server URL
 
 const CashOut = () => {
   const { user } = useContext(AuthContext);

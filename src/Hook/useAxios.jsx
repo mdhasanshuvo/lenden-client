@@ -5,7 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 
 // Create an axios instance with base settings
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://lenden-server-seven.vercel.app',
     withCredentials: true // This ensures cookies are sent with every request
 });
 

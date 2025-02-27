@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { MdPayment } from "react-icons/md";
 import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://lenden-server-seven.vercel.app";
 
 const UserHome = () => {
   const { user } = useContext(AuthContext);

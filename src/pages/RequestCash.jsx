@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 import useAxios from "../Hook/useAxios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://lenden-server-seven.vercel.app";
 
 const RequestCash = () => {
   const { user } = useContext(AuthContext); // user should be an agent
