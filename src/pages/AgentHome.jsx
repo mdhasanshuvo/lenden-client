@@ -21,15 +21,15 @@ const AgentHome = () => {
   const axiosSecure = useAxios();
 
   const fetchAgentProfile = async () => {
-        try {
-            const res = await axiosSecure.get('/profile', { withCredentials: true });
-            if (res.data.success && res.data.user.agentIncome !== undefined) {
-                setAgentIncome(res.data.user.agentIncome);
-            }
-        } catch (error) {
-            console.error("AgentHome fetch error:", error);
-        }
-    };
+    try {
+      const res = await axiosSecure.get('/profile', { withCredentials: true });
+      if (res.data.success && res.data.user.agentIncome !== undefined) {
+        setAgentIncome(res.data.user.agentIncome);
+      }
+    } catch (error) {
+      console.error("AgentHome fetch error:", error);
+    }
+  };
 
   const fetchTransactions = async () => {
     try {
@@ -50,18 +50,18 @@ const AgentHome = () => {
   const toggleIncome = () => setShowIncome(!showIncome);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600">
       <motion.div
-        className="bg-gradient-to-r from-pink-500 to-pink-600 text-white p-4 flex flex-col items-start"
+        className="bg-gradient-to-r from-indigo-400 to-indigo-600 text-white p-6 flex flex-col items-start"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-xl font-bold">{user?.name || "Agent Name"}</h1>
+        <h1 className="text-2xl font-bold">{user?.name || "Agent Name"}</h1>
         <div className="mt-2 flex items-center">
           <button
             onClick={toggleIncome}
-            className="bg-white text-pink-600 px-3 py-1 rounded-full font-medium mr-2"
+            className="bg-white text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-full font-medium mr-2 shadow-md transition duration-300"
           >
             {showIncome ? `Income: ৳${agentIncome.toFixed(2)}` : "Tap for Income"}
           </button>
@@ -70,42 +70,42 @@ const AgentHome = () => {
       </motion.div>
 
       {/* Shortcut grid */}
-      <div className="grid grid-cols-3 gap-4 p-4">
+      <div className="grid grid-cols-3 gap-6 p-6">
         <Link
           to="/dashboard/agent/cash-in-users"
-          className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
+          className="bg-white shadow-lg p-5 rounded-xl flex flex-col items-center hover:shadow-2xl transition duration-300"
         >
-          <FaUserPlus className="text-pink-500 mb-2" size={28} />
-          <span className="text-sm font-semibold text-gray-700">Cash-In (User)</span>
+          <FaUserPlus className="text-indigo-500 mb-3" size={28} />
+          <span className="text-lg font-semibold text-gray-700">Cash-In (User)</span>
         </Link>
         <Link
           to="/dashboard/agent/cash-request"
-          className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
+          className="bg-white shadow-lg p-5 rounded-xl flex flex-col items-center hover:shadow-2xl transition duration-300"
         >
-          <FaMoneyCheck className="text-pink-500 mb-2" size={28} />
-          <span className="text-sm font-semibold text-gray-700">Request Cash</span>
+          <FaMoneyCheck className="text-indigo-500 mb-3" size={28} />
+          <span className="text-lg font-semibold text-gray-700">Request Cash</span>
         </Link>
         <Link
           to="/dashboard/agent/withdraw-request"
-          className="bg-white shadow-md p-3 rounded-lg flex flex-col items-center hover:shadow-lg"
+          className="bg-white shadow-lg p-5 rounded-xl flex flex-col items-center hover:shadow-2xl transition duration-300"
         >
-          <FaHandHoldingUsd className="text-pink-500 mb-2" size={28} />
-          <span className="text-sm font-semibold text-gray-700">Withdraw</span>
+          <FaHandHoldingUsd className="text-indigo-500 mb-3" size={28} />
+          <span className="text-lg font-semibold text-gray-700">Withdraw</span>
         </Link>
       </div>
 
       {/* Recent Transactions */}
-      <div className="p-4">
-        <h2 className="text-lg font-bold text-gray-800 mb-2">Recent Transactions</h2>
-        <div className="bg-white rounded-lg shadow p-3">
+      <div className="p-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Transactions</h2>
+        <div className="bg-white rounded-xl shadow-lg p-6">
           {recentTx.length === 0 ? (
             <p className="text-gray-500">No recent transactions</p>
           ) : (
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               {recentTx.map((tx) => (
-                <li key={tx._id} className="border-b pb-2">
+                <li key={tx._id} className="border-b pb-4">
                   <p className="font-semibold">TX ID: {tx.transactionId}</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-lg text-gray-600">
                     {tx.type} | Amount: ৳{tx.amount}
                   </p>
                   <p className="text-xs text-gray-400">
@@ -115,8 +115,8 @@ const AgentHome = () => {
               ))}
             </ul>
           )}
-          <div className="mt-3 text-right">
-            <Link to="/dashboard/agent/Transactions" className="text-pink-600 hover:underline">
+          <div className="mt-4 text-right">
+            <Link to="/dashboard/agent/Transactions" className="text-indigo-600 hover:text-indigo-800 hover:underline">
               Show All Transactions
             </Link>
           </div>
@@ -124,6 +124,7 @@ const AgentHome = () => {
       </div>
     </div>
   );
+
 };
 
 export default AgentHome;

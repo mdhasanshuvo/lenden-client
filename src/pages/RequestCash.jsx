@@ -61,7 +61,7 @@ const RequestCash = () => {
         {/* Reason (optional) */}
         <label className="block text-gray-700 mb-1">Reason (optional)</label>
         <textarea
-          className="w-full border rounded-md p-2 mb-4 outline-none focus:border-pink-500"
+          className="w-full border rounded-md p-2 mb-4 outline-none focus:border-blue-500"
           rows={3}
           placeholder="e.g. Need more e-balance to serve more users..."
           value={reason}
@@ -70,7 +70,7 @@ const RequestCash = () => {
 
         <button
           onClick={handleRequest}
-          className="btn bg-pink-600 hover:bg-pink-700 text-white w-full py-2 rounded-md font-semibold"
+          className="btn bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white w-full py-2 rounded-md font-semibold"
         >
           Request 100,000 Taka
         </button>

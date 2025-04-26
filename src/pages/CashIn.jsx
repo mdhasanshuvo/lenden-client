@@ -124,7 +124,7 @@ const CashIn = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white p-4 flex items-center">
+      <div className="bg-gradient-to-r from-indigo-400 to-indigo-600 text-white p-4 flex items-center">
         <button onClick={handleGoBack} className="mr-2">
           <FiArrowLeft size={24} />
         </button>
@@ -168,7 +168,7 @@ const CashIn = () => {
         {step === 2 && selectedUser && (
           <div className="bg-white rounded-xl shadow p-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-pink-400 text-white flex items-center justify-center font-semibold">
+              <div className="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center font-semibold">
                 {selectedUser.name.charAt(0).toUpperCase()}
               </div>
               <div>
@@ -182,12 +182,12 @@ const CashIn = () => {
             <div>
               <label className="block text-gray-600 mb-1">Amount</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500 font-bold">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500 font-bold">
                   ৳
                 </span>
                 <input
                   type="number"
-                  className="w-full pl-7 pr-3 py-2 border rounded-md outline-none focus:border-pink-500"
+                  className="w-full pl-7 pr-3 py-2 border rounded-md outline-none focus:border-blue-500"
                   placeholder="Enter amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
@@ -200,7 +200,7 @@ const CashIn = () => {
               <label className="block text-gray-600 mb-1">Reference (optional)</label>
               <input
                 type="text"
-                className="w-full border rounded-md outline-none focus:border-pink-500 px-3 py-2"
+                className="w-full border rounded-md outline-none focus:border-blue-500 px-3 py-2"
                 placeholder="e.g. deposit from user"
                 value={reference}
                 onChange={(e) => setReference(e.target.value)}
@@ -210,7 +210,7 @@ const CashIn = () => {
 
             <button
               onClick={handleProceed}
-              className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-md font-semibold"
+              className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-2 rounded-md font-semibold"
             >
               Continue
             </button>
@@ -221,7 +221,7 @@ const CashIn = () => {
         {step === 3 && selectedUser && (
           <div className="bg-white rounded-xl shadow p-4 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-pink-400 text-white flex items-center justify-center font-semibold">
+              <div className="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center font-semibold">
                 {selectedUser.name.charAt(0).toUpperCase()}
               </div>
               <div>
@@ -253,12 +253,12 @@ const CashIn = () => {
             <div>
               <label className="block text-gray-600 mb-1">Agent PIN</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
                   <BsFillLockFill />
                 </span>
                 <input
                   type="password"
-                  className="w-full pl-9 pr-3 py-2 border rounded-md outline-none focus:border-pink-500"
+                  className="w-full pl-9 pr-3 py-2 border rounded-md outline-none focus:border-blue-500"
                   placeholder="Enter your 5-digit PIN"
                   maxLength={5}
                   value={pin}
@@ -269,7 +269,7 @@ const CashIn = () => {
 
             <button
               onClick={handleCashIn}
-              className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-md font-semibold"
+              className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-2 rounded-md font-semibold"
             >
               Confirm to Cash In
             </button>

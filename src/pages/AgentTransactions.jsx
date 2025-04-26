@@ -54,7 +54,7 @@ const AgentTransactions = () => {
         <div className="space-y-3">
           {transactions.map((tx) => (
             <div key={tx._id} className="bg-white p-3 rounded shadow flex items-center">
-              <FaExchangeAlt className="text-pink-500 mr-3" size={24} />
+              <FaExchangeAlt className="text-blue-500 mr-3" size={24} />
               <div>
                 <p className="font-semibold">TX ID: {tx.transactionId}</p>
                 <p className="text-sm text-gray-600">

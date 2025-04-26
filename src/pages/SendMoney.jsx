@@ -48,17 +48,20 @@ const SendMoney = () => {
             .get(`/users?accountType=User`, { withCredentials: true })
             .then((res) => {
                 if (res.data.success && res.data.users) {
-                    const mapped = res.data.users.map((u) => ({
-                        id: u._id,
-                        name: u.name,
-                        phone: u.mobileNumber,
-                    }));
+                    const mapped = res.data.users
+                        .filter((u) => u.mobileNumber !== user?.mobileNumber) // remove own number
+                        .map((u) => ({
+                            id: u._id,
+                            name: u.name,
+                            phone: u.mobileNumber,
+                        }));
                     setContacts(mapped);
                 }
             })
             .catch((error) => {
                 console.log("Contacts fetch error:", error);
             });
+
     }, []);
 
     // Filtered contacts
@@ -161,7 +164,7 @@ const SendMoney = () => {
     return (
         <div className="min-h-screen flex flex-col bg-gray-100">
             {/* TOP BAR */}
-            <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white p-4 flex items-center">
+            <div className="bg-gradient-to-r from-indigo-400 to-indigo-600 text-white p-4 flex items-center">
                 <button onClick={handleGoBack} className="mr-2">
                     <FiArrowLeft size={24} />
                 </button>
@@ -209,7 +212,7 @@ const SendMoney = () => {
                 {step === 2 && selectedRecipient && (
                     <div className="bg-white rounded-xl shadow p-4 space-y-4">
                         <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-pink-400 text-white flex items-center justify-center font-semibold">
+                            <div className="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center font-semibold">
                                 {selectedRecipient.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
@@ -224,12 +227,12 @@ const SendMoney = () => {
                         <div>
                             <label className="block text-gray-600 mb-1">Amount</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500 font-bold">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500 font-bold">
                                     ৳
                                 </span>
                                 <input
                                     type="number"
-                                    className="w-full pl-7 pr-3 py-2 border rounded-md outline-none focus:border-pink-500"
+                                    className="w-full pl-7 pr-3 py-2 border rounded-md outline-none focus:border-blue-500"
                                     placeholder="Enter amount"
                                     value={amount}
                                     onChange={(e) => handleAmountChange(e.target.value)}
@@ -255,7 +258,7 @@ const SendMoney = () => {
                             <label className="block text-gray-600 mb-1">Reference</label>
                             <input
                                 type="text"
-                                className="w-full border rounded-md outline-none focus:border-pink-500 px-3 py-2"
+                                className="w-full border rounded-md outline-none focus:border-blue-500 px-3 py-2"
                                 placeholder="e.g. Gift, Bill share..."
                                 value={reference}
                                 maxLength={25}
@@ -265,7 +268,7 @@ const SendMoney = () => {
 
                         <button
                             onClick={handleProceed}
-                            className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-md font-semibold"
+                            className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-2 rounded-md font-semibold"
                         >
                             Proceed
                         </button>
@@ -276,7 +279,7 @@ const SendMoney = () => {
                 {step === 3 && selectedRecipient && (
                     <div className="bg-white rounded-xl shadow p-4 space-y-6">
                         <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-pink-400 text-white flex items-center justify-center font-semibold">
+                            <div className="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center font-semibold">
                                 {selectedRecipient.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
@@ -316,12 +319,12 @@ const SendMoney = () => {
                         <div>
                             <label className="block text-gray-600 mb-1">Confirm PIN</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500">
+                                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
                                     <BsFillLockFill />
                                 </span>
                                 <input
                                     type="password"
-                                    className="w-full pl-9 pr-3 py-2 border rounded-md outline-none focus:border-pink-500"
+                                    className="w-full pl-9 pr-3 py-2 border rounded-md outline-none focus:border-blue-500"
                                     placeholder="Enter your 5-digit PIN"
                                     maxLength={5}
                                     value={pin}
@@ -332,7 +335,7 @@ const SendMoney = () => {
 
                         <button
                             onClick={handleSendMoney}
-                            className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-md font-semibold"
+                            className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-2 rounded-md font-semibold"
                         >
                             Confirm to Send
                         </button>
