@@ -10,6 +10,7 @@ import useAxios from "../Hook/useAxios";
 const AgentHome = () => {
   const { user } = useContext(AuthContext);
   const [agentIncome, setAgentIncome] = useState(0);
+  const [agentBalance, setAgentBalance] = useState(0);
   const [showIncome, setShowIncome] = useState(false);
   const [recentTx, setRecentTx] = useState([]);
 
@@ -25,6 +26,7 @@ const AgentHome = () => {
       const res = await axiosSecure.get('/profile', { withCredentials: true });
       if (res.data.success && res.data.user.agentIncome !== undefined) {
         setAgentIncome(res.data.user.agentIncome);
+        setAgentBalance(res.data.user.balance || 0);
       }
     } catch (error) {
       console.error("AgentHome fetch error:", error);
@@ -61,11 +63,15 @@ const AgentHome = () => {
         <div className="mt-2 flex items-center">
           <button
             onClick={toggleIncome}
-            className="bg-white text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-full font-medium mr-2 shadow-md transition duration-300"
+            className="bg-white text-indigo-600 hover:bg-indigo-100 px-4 py-2 rounded-full font-semibold mr-2 shadow-md transition duration-300"
           >
-            {showIncome ? `Income: ৳${agentIncome.toFixed(2)}` : "Tap for Income"}
+            {showIncome 
+              ? `Income: ৳${agentIncome.toFixed(2)} | Balance: ৳${agentBalance.toFixed(2)}` 
+              : "Tap for Stats"}
           </button>
-          {showIncome ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+          <div className="ml-2">
+            {showIncome ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+          </div>
         </div>
       </motion.div>
 

@@ -10,6 +10,7 @@ import { BiMoneyWithdraw } from "react-icons/bi";
 import { BsCashCoin } from "react-icons/bs";
 import { GrTransaction } from "react-icons/gr";
 import Loading from "../pages/Loading";
+import defaultUserImage from "../../public/user-logo.png";
 
 const DashboardLayout = () => {
   const { user, logout } = useContext(AuthContext);
@@ -170,7 +171,7 @@ const DashboardLayout = () => {
             <div className="flex items-center gap-4">
               <span className="text-gray-700 font-semibold">{user?.name || "User"}</span>
               <img
-                src={user?.photoURL || "https://via.placeholder.com/40"}
+                src={user?.photoURL || defaultUserImage}
                 alt="User"
                 className="w-10 h-10 rounded-full border border-gray-300 object-cover"
               />
